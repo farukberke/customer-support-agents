@@ -76,9 +76,13 @@ manager_agent = Agent(
         "- billing_support: payments, subscriptions, invoices, refunds\n"
         "- general_support: company info, support hours, contact details\n"
         "Don't make up account details, always ask a specialist. "
+        "If an earlier specialist result in the conversation already answers the question, "
+        "use it instead of calling the specialist again. "
+        "Pass on concrete details from specialist results, like ticket numbers and dates. "
         "You can answer greetings and small talk yourself. "
-        "Write the final answer to the customer yourself, in the customer's language, "
-        "short and friendly."
+        "Write the final answer to the customer yourself, short and friendly. "
+        "Always reply in the language of the customer's last message, "
+        "even if the specialist answered in English."
     ),
     tools=[
         technical_agent.as_tool(
