@@ -17,6 +17,7 @@ Kullanılanlar:
 - [OpenAI Agents SDK](https://github.com/openai/openai-agents-python) (`openai-agents`)
 - Groq'un OpenAI uyumlu API'si
 - Model: `openai/gpt-oss-20b`
+- Gradio, yalnızca basit bir test arayüzü için
 
 ## Mimari
 
@@ -67,6 +68,9 @@ zaman çağıracağına kendisi karar veriyor. Fonksiyonun kendisi ise lokalde,
 Python içinde çalışıyor. Her tool, çalıştığı anı görebilmek için bir
 `[tool] ...` satırı yazdırıyor.
 
+Groq, parametresi olmayan strict tool şemalarını reddediyor. Bu yüzden argüman
+almayan tool'larda `@function_tool(strict_mode=False)` kullanılıyor.
+
 **Agent as tool.** `agent.as_tool(tool_name=..., tool_description=...)`, bir
 agentın tamamını tek bir `input` string parametresi alan bir tool'a çeviriyor.
 Manager bu tool'u çağırdığında SDK, uzman agentı kendi agent loop'unda
@@ -114,6 +118,15 @@ görünüyor. Bunun sebebi, manager'ın tool çağrılarının ancak tüm run
 bittikten sonra yazdırılması.
 
 Programı kapatmak için `exit` veya `quit` yaz.
+
+Tarayıcıda test etmek için küçük bir Gradio sayfası da var:
+
+```bash
+python app.py
+```
+
+Sayfa http://127.0.0.1:7860 adresinde açılıyor. Her cevabın sonunda manager'ın
+kullandığı uzmanlar yazıyor. `[tool]` satırları yine terminalde görünüyor.
 
 ## Neler öğrendim
 
