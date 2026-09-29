@@ -61,3 +61,36 @@ billing_agent = Agent(
     tools=[get_subscription_info, cancel_subscription, create_billing_ticket],
     model=model,
 )
+
+# as_tool() wraps a whole agent as a tool. When the manager calls it, the SDK
+# runs the specialist in its own agent loop and returns its final output
+# to the manager as the tool result. The manager keeps control of the conversation.
+manager_agent = Agent(
+    name="Customer Support Manager",
+    instructions=(
+        "You are the customer support manager of Acme Cloud. "
+        "Decide which specialist can help and call it with a clear description of the request:\n"
+        "- technical_support: login problems, app errors, passwords, service status\n"
+        "- billing_support: payments, subscriptions, invoices, refunds\n"
+        "- general_support: company info, support hours, contact details\n"
+        "Don't make up account details, always ask a specialist. "
+        "You can answer greetings and small talk yourself. "
+        "Write the final answer to the customer yourself, in the customer's language, "
+        "short and friendly."
+    ),
+    tools=[
+        technical_agent.as_tool(
+            tool_name="technical_support",
+            tool_description="Handles technical problems like login issues, app errors and password resets.",
+        ),
+        billing_agent.as_tool(
+            tool_name="billing_support",
+            tool_description="Handles payments, subscriptions, invoices and refunds.",
+        ),
+        general_agent.as_tool(
+            tool_name="general_support",
+            tool_description="Answers general questions about the company, support hours and contact info.",
+        ),
+    ],
+    model=model,
+)
