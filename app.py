@@ -21,7 +21,8 @@ async def respond(
         if isinstance(item, ToolCallItem) and item.tool_name
     ]
     if called:
-        answer += f"\n\n*Specialists used: {', '.join(called)}*"
+        names = ", ".join(f"`{name}`" for name in dict.fromkeys(called))
+        answer += f"\n\n---\n**Specialists used:** {names}"
 
     chat = chat + [
         {"role": "user", "content": message},
@@ -32,7 +33,7 @@ async def respond(
 
 with gr.Blocks(title="Customer Support Agents") as demo:
     gr.Markdown("# Customer Support Agents")
-    chatbot = gr.Chatbot(height=500)
+    chatbot = gr.Chatbot(height="80vh")
     # The agent history also keeps tool calls, so it is stored separately from the chat window.
     history = gr.State([])
     textbox = gr.Textbox(placeholder="Type your message...", show_label=False)
