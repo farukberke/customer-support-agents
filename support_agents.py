@@ -30,7 +30,7 @@ general_agent = Agent(
         "cloud storage and file sharing subscriptions. "
         "Support hours are Monday to Friday, 09:00-18:00 (UTC+3). "
         "Customers can reach support at support@acmecloud.example or +90 212 555 00 00. "
-        "Keep answers short."
+        "Your reply goes to the support manager. Keep it short."
     ),
     model=model,
 )
@@ -42,7 +42,8 @@ technical_agent = Agent(
         "Use check_service_status when the customer can't log in or the app doesn't work. "
         "Use reset_password only if the customer forgot their password and gave an email. "
         "If you can't solve the problem, open a ticket with create_technical_ticket. "
-        "Reply with a short summary of what you found and did."
+        "Your reply goes to the support manager, not the customer. "
+        "Summarize what you found and did, and say if you need more info from the customer."
     ),
     tools=[check_service_status, reset_password, create_technical_ticket],
     model=model,
@@ -56,7 +57,8 @@ billing_agent = Agent(
         "Use cancel_subscription only when the customer clearly asks to cancel. "
         "For duplicate charges or refunds, check the payments first, then open a ticket "
         "with create_billing_ticket. "
-        "Reply with a short summary of what you found and did."
+        "Your reply goes to the support manager, not the customer. "
+        "Summarize what you found and did, and say if you need more info from the customer."
     ),
     tools=[get_subscription_info, cancel_subscription, create_billing_ticket],
     model=model,
