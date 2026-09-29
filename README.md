@@ -19,6 +19,8 @@ Kullanılanlar:
 - Model: `openai/gpt-oss-20b`
 - Gradio, yalnızca basit bir test arayüzü için
 
+![Gradio test arayüzü](docs/demo.png)
+
 ## Mimari
 
 ```text
