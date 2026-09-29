@@ -2,9 +2,11 @@ from agents import function_tool
 
 # @function_tool turns a Python function into a tool the LLM can call.
 # The SDK builds the tool's JSON schema from the type hints and docstring.
+# Groq rejects strict schemas with no parameters, so tools without arguments
+# use strict_mode=False.
 
 
-@function_tool
+@function_tool(strict_mode=False)
 def check_service_status() -> str:
     """Return the current mock service status."""
     print("  [tool] check_service_status()")
@@ -33,7 +35,7 @@ def create_technical_ticket(issue: str) -> str:
     return "Technical ticket TECH-1042 created. The team will reply within 24 hours."
 
 
-@function_tool
+@function_tool(strict_mode=False)
 def get_subscription_info() -> str:
     """Return the customer's mock subscription details and recent payments."""
     print("  [tool] get_subscription_info()")
@@ -44,7 +46,7 @@ def get_subscription_info() -> str:
     )
 
 
-@function_tool
+@function_tool(strict_mode=False)
 def cancel_subscription() -> str:
     """Cancel the customer's subscription at the end of the billing period."""
     print("  [tool] cancel_subscription()")
