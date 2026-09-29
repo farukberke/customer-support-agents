@@ -25,7 +25,7 @@ async def main() -> None:
 
         for item in result.new_items:
             if isinstance(item, ToolCallItem):
-                print(f"  [manager called {item.raw_item.name}]")
+                print(f"  [manager called {item.tool_name}]")
 
         print(f"\nAssistant: {result.final_output}")
 
