@@ -31,3 +31,32 @@ def create_technical_ticket(issue: str) -> str:
     """
     print(f"  [tool] create_technical_ticket({issue!r})")
     return "Technical ticket TECH-1042 created. The team will reply within 24 hours."
+
+
+@function_tool
+def get_subscription_info() -> str:
+    """Return the customer's mock subscription details and recent payments."""
+    print("  [tool] get_subscription_info()")
+    return (
+        "Plan: Pro (monthly), 199 TRY/month, status: active, next billing date: 2026-10-15. "
+        "Recent payments: 2026-09-15 199 TRY, 2026-09-15 199 TRY, 2026-08-15 199 TRY. "
+        "Invoices are available under Account > Billing > Invoices."
+    )
+
+
+@function_tool
+def cancel_subscription() -> str:
+    """Cancel the customer's subscription at the end of the billing period."""
+    print("  [tool] cancel_subscription()")
+    return "Subscription cancelled. The Pro plan stays active until 2026-10-15."
+
+
+@function_tool
+def create_billing_ticket(issue: str) -> str:
+    """Open a billing ticket for refunds, duplicate charges or invoice problems.
+
+    Args:
+        issue: Short description of the billing problem.
+    """
+    print(f"  [tool] create_billing_ticket({issue!r})")
+    return "Billing ticket BILL-2087 created. Refunds are processed within 5 business days."

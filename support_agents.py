@@ -4,7 +4,14 @@ from agents import Agent, OpenAIChatCompletionsModel
 from dotenv import load_dotenv
 from openai import AsyncOpenAI
 
-from tools import check_service_status, create_technical_ticket, reset_password
+from tools import (
+    cancel_subscription,
+    check_service_status,
+    create_billing_ticket,
+    create_technical_ticket,
+    get_subscription_info,
+    reset_password,
+)
 
 load_dotenv()
 
@@ -38,5 +45,19 @@ technical_agent = Agent(
         "Reply with a short summary of what you found and did."
     ),
     tools=[check_service_status, reset_password, create_technical_ticket],
+    model=model,
+)
+
+billing_agent = Agent(
+    name="Billing Support Agent",
+    instructions=(
+        "You handle payments, subscriptions and invoices. "
+        "Use get_subscription_info to look up the plan, payments and invoices. "
+        "Use cancel_subscription only when the customer clearly asks to cancel. "
+        "For duplicate charges or refunds, check the payments first, then open a ticket "
+        "with create_billing_ticket. "
+        "Reply with a short summary of what you found and did."
+    ),
+    tools=[get_subscription_info, cancel_subscription, create_billing_ticket],
     model=model,
 )
